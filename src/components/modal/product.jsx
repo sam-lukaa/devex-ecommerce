@@ -35,11 +35,6 @@ export default function Index({
         <div className="modal__overlay">
           <div ref={modalRef} className="modal__card">
             <div>
-              {cartSuccess === true ? (
-                <h3>{cartMessage}</h3>
-              ) : (
-                <h3>An error occured, please try again</h3>
-              )}
               <h3 className="modal-header">{product.name}</h3>
               <img src={product.media.source} alt={product.name} />
               <button
