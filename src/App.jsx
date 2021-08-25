@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 import "./App.css";
 
 import ProductsList from "./components/ProductsList";
+import Cart from "./components/cart/index";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -21,6 +22,14 @@ export default function App() {
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
+    console.log(cart);
+  };
+
+  const handleRemoveItem = async (id) => {
+    const res = await commerce.cart.remove(id);
+    console.log(res);
+
+    setCart(res.cart);
   };
 
   const fetchCategories = async () => {
@@ -44,6 +53,18 @@ export default function App() {
     }
   };
 
+  const handleCartUpdate = async (id, newQuantity) => {
+    const res = await commerce.cart.update(id, {
+      quantity: newQuantity,
+    });
+    setCart(res.cart);
+  };
+
+  const handleClearCart = async () => {
+    const res = await commerce.cart.empty();
+    setCart(res.cart);
+  };
+
   const handleDismissCartMessage = () => {
     setCartMessage();
     setCartSuccess(false);
@@ -55,45 +76,51 @@ export default function App() {
     fetchCart();
   }, []);
 
+  // console.log(cart);
+
   return (
     <Router>
       {/* Navbar */}
       <header>
-        <h3 className="home__title">DevEx</h3>
+        <Link to="/" className="home__title">
+          DevEx
+        </Link>
         <div className="home__links">
-          <Link to="/" className="home__link">Home</Link >
+          <Link to="/" className="home__link">
+            Home
+          </Link>
           <Link to="/cart" className="home__cart">
-            <span>{cart.total_items}</span>{" "}
+            <span>{cart.total_items}</span>
             <i className="fas fa-shopping-cart"></i>
           </Link>
         </div>
       </header>
 
       <div className="body">
-        <div className="categories">
-          {categories.map((category) => {
-            return (
-              <div className="category" key={category.slug}>
-                {category.assets.map((asset) => (
-                  <img
-                  className="category__img"
-                  src={asset.url}
-                  key={asset.url}
-                  />
-                ))}
-
-                <button
-                  onClick={() => fetchCategory(category.slug)}
-                  className="category__btn"
-                  >
-                  {category.name}({category.products}) ~ View Products
-                </button>
-              </div>
-            );
-          })}
-        </div>
         <Switch>
-          <Route exact path="/"> 
+          <Route exact path="/">
+            <div className="categories">
+              {categories.map((category) => {
+                return (
+                  <div className="category" key={category.slug}>
+                    {category.assets.map((asset) => (
+                      <img
+                        className="category__img"
+                        src={asset.url}
+                        key={asset.url}
+                      />
+                    ))}
+
+                    <button
+                      onClick={() => fetchCategory(category.slug)}
+                      className="category__btn"
+                    >
+                      {category.name}({category.products}) ~ View Products
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
             <ProductsList
               products={products}
               handleCart={handleCart}
@@ -103,10 +130,19 @@ export default function App() {
               setCartMessage={setCartMessage}
               handleDismissCartMessage={handleDismissCartMessage}
             />
-        </Route>
-        <Route exact path="/category"> </Route>
-        <Route exact path="/cart"> </Route>
-            </Switch>
+          </Route>
+          {/* <Route exact path="/category">
+          </Route> */}
+          <Route exact path="/cart">
+            <Cart
+              cart={cart}
+              fetchCart={fetchCart}
+              handleCartUpdate={handleCartUpdate}
+              handleRemoveItem={handleRemoveItem}
+              handleClearCart={handleClearCart}
+            />
+          </Route>
+        </Switch>
         {cartMessage ? (
           <div>
             <p>{cartMessage}</p>

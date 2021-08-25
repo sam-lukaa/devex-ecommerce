@@ -16,8 +16,6 @@ export default function ProductsList({
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
-  console.log(details);
-
   const handleModal = () => {
     setModal(!modal);
   };
