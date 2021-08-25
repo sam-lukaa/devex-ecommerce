@@ -36,7 +36,7 @@ export default function ProductItem({
   return (
     <div className="product__card">
       <h4 className="product__name">{product.name}</h4>
-      <img src={product.media.source} alt={product.name} />
+      <img className="product__img" src={product.media.source} alt={product.name} />
       <div
         dangerouslySetInnerHTML={{ __html: description }}
         className="product__description"

@@ -16,6 +16,8 @@ export default function ProductsList({
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
+  console.log(details);
+
   const handleModal = () => {
     setModal(!modal);
   };
@@ -25,7 +27,7 @@ export default function ProductsList({
   };
 
   return (
-    <div>
+    <div className="products">
       {modal && (
         <ProductDetails
           product={details}
@@ -36,17 +38,15 @@ export default function ProductsList({
       )}
       {products.length > 0 ? (
         products.map((product) => (
-          <div className="products">
-            <ProductItem
-              key={product.id}
-              product={product}
-              addToCart={handleCart}
-              cart={cart}
-              setDetails={setDetails}
-              handleModal={handleModal}
-              setLoading={setLoading}
-            />
-          </div>
+          <ProductItem
+            key={product.id}
+            product={product}
+            addToCart={handleCart}
+            cart={cart}
+            setDetails={setDetails}
+            handleModal={handleModal}
+            setLoading={setLoading}
+          />
         ))
       ) : (
         <Loading closeModal={closeModal} />
