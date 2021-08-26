@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 
-import { commerce } from "../../lib/commerce";
+import RemoveItem from "../modal/deleteItem";
 
-export default function Index({
-  product,
-  fetchCart,
-  handleCartUpdate,
-  handleRemoveItem,
-}) {
+export default function Index({ product, fetchCart, handleCartUpdate, handleShowModal }) {
   const [quant, setQuant] = useState(product.quantity);
 
   const handleQuantity = (e) => {
@@ -17,6 +12,7 @@ export default function Index({
 
   useEffect(() => {
     handleCartUpdate(product.id, quant);
+    fetchCart();
   }, [quant]);
 
   return (
@@ -30,17 +26,19 @@ export default function Index({
         alt={product.name}
       />
       <div className="product__btn">
+        {/* handleRemoveItem(product.id); */}
         <button
           className="remove__cart"
-          onClick={() => {
-            handleRemoveItem(product.id);
-          }}
+          onClick={() =>
+            handleShowModal(product.id, product.name, product.media.source)
+          }
         >
           <i className="fas fa-trash icon"></i>
         </button>
         <input
           type="number"
           className="cart__quantity"
+          min="1"
           value={quant}
           onChange={handleQuantity}
         />

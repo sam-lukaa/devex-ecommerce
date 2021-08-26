@@ -56,7 +56,7 @@ export default function Index({ product, closeModal, addToCart, loading }) {
 
             <h3 className="modal__text">Related products</h3>
             {product.related_products.slice(0, 1).map((related) => (
-              <div>
+              <div key={ related.id}>
                 <div className="related__products">
                   <img className="modal__rel-img" src={related.media.source} />
                   <p className="modal__text">

@@ -1,5 +1,10 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   scroll-behavior: smooth;
+  transition: 0.3s;
 }
 
 .body {
@@ -12,6 +17,7 @@ img {
   width: 250px;
   height: 250px;
   border-radius: 5px;
+  transition: 0.3s;
 }
 
 button {
@@ -166,14 +172,20 @@ header {
 .product__description,
 .product__price {
   font-weight: bold;
-  margin-top: auto;
+  /* margin-top: auto; */
 }
 
 .product__btn {
   display: flex;
-  justify-content: center;
-  align-items: baseline;
+  justify-content: space-between;
+  align-items: center;
 }
+
+/* product__btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
 
 /* Category */
 .categories {
@@ -282,7 +294,7 @@ header {
 
 .cart__header-remove {
   background: rgb(105, 26, 26);
-  padding: 0.4rem 0.2rem;
+  padding: 0.6rem;
   border: none;
   color: whitesmoke;
   font-size: 15px;
@@ -294,7 +306,19 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .6rem;
+  padding: 0.6rem;
+}
+
+.empty__cart {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty__cart-link {
+  color: whitesmoke;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 2rem;
 }
 
 .modal__overlay {
@@ -310,7 +334,7 @@ header {
 
 .modal__card {
   background-color: whitesmoke;
-  border-radius: 3px;
+  border-radius: 5px;
   top: 2rem;
   left: 50%;
   transform: translate(-50%, 0);
@@ -320,7 +344,9 @@ header {
   margin: auto;
   z-index: 2;
   transition: 0.5s ease;
-  height: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  transition: all 0.5s ease;
 }
 
 .modal-header {
@@ -337,13 +363,14 @@ header {
   padding-left: 0.3rem;
 }
 
-/* .modal__main-img {
-  width: 100%;
-} */
-
 .modal__text {
   color: rgb(12, 12, 29);
   font-weight: 500;
+}
+
+.modal__main-img {
+  width: 80%;
+  margin: auto;
 }
 
 .related__products {
@@ -367,7 +394,20 @@ header {
   font-weight: 700;
 }
 
+.delete__item-name {
+  color: rgb(105, 26, 26);
+  font-weight: 700;
+}
+
+.delete__item-img {
+  width: 100%;
+}
+
 @media (max-width: 990px) {
+  header {
+    padding: 0.2rem;
+  }
+
   .body {
     padding: 0;
     /* color: rgb(12, 12, 29);
@@ -384,15 +424,43 @@ header {
     flex: 2 35%;
     background-color: transparent;
     padding: 0;
+    margin-bottom: 3rem;
   }
 
   .products .product__card:first-child,
   .products .product__card:nth-child(2) {
     flex: 2 46%;
   }
+  
+  .product__info {
+    background-color: whitesmoke;
+    padding: 0.2rem;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    width: 92%;
+    text-align: center;
+  }
 
   .product__name {
+    background-color: whitesmoke;
+    color: rgb(12, 12, 29);
+    padding: 0.3rem;
+    width: 92%;
+    margin: 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
     font-size: 20px;
+  }
+
+  .product__img {
+    border-radius: 0;
+    width: 93%
+  }
+
+  .product__description,
+  .product__price {
+    color: rgb(12, 12, 29);
+    padding: 0;
   }
 
   .categories {
@@ -428,6 +496,10 @@ header {
     font-weight: 700;
     font-size: 15px;
   }
+
+  .modal__main-img {
+    width: 300px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -440,7 +512,33 @@ header {
     flex: 2 60%;
   }
 
+  .product__info {
+    width: 98%;
+  }
+
+  .product__name {
+    width: 97%;
+  }
+
+  .product__img {
+    border-radius: 0;
+    width: 100%
+  }
+
   img {
-  width: 100%;
+    width: 100%;
+  }
+
+  .modal__card {
+    width: 80vw;
+    padding: 1rem;
+  }
+
+  .modal__main-img {
+    width: 250px;
+  }
+
+  .delete__item-img {
+    width: 250px;
   }
 }

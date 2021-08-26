@@ -41,20 +41,27 @@ export default function ProductItem({
         src={product.media.source}
         alt={product.name}
       />
-      <div
-        dangerouslySetInnerHTML={{ __html: description }}
-        className="product__description"
-      ></div>
-      <small className="product__price">
-        {product.price.formatted_with_symbol}
-      </small>
-      <div className="product__btn">
-        <button className="add__cart " onClick={() => addToCart(product.id, 1)}>
-          <i className="fas fa-cart-plus icon"></i>
-        </button>
-        <button className="more__cart" onClick={handleProductDetails}>
-          <i className="fas fa-info-circle icon"></i>
-        </button>
+      <div className="product__info">
+        <div
+          dangerouslySetInnerHTML={{ __html: description }}
+          className="product__description"
+        ></div>
+        <div className="product__btn">
+          <h3 className="product__price">
+            {product.price.formatted_with_symbol}
+          </h3>
+          <div>
+            <button
+              className="add__cart "
+              onClick={() => addToCart(product.id, 1)}
+            >
+              <i className="fas fa-cart-plus icon"></i>
+            </button>
+            <button className="more__cart" onClick={handleProductDetails}>
+              <i className="fas fa-info-circle icon"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

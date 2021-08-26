@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 import "./App.css";
 
@@ -8,6 +8,8 @@ import ProductsList from "./components/ProductsList";
 import Cart from "./components/cart/index";
 
 export default function App() {
+  const history = useHistory();
+
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [cartSuccess, setCartSuccess] = useState(false);
@@ -22,13 +24,10 @@ export default function App() {
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
-    console.log(cart);
   };
 
   const handleRemoveItem = async (id) => {
     const res = await commerce.cart.remove(id);
-    console.log(res);
-
     setCart(res.cart);
   };
 
@@ -63,6 +62,8 @@ export default function App() {
   const handleClearCart = async () => {
     const res = await commerce.cart.empty();
     setCart(res.cart);
+
+    history.push("/");
   };
 
   const handleDismissCartMessage = () => {
@@ -143,14 +144,14 @@ export default function App() {
             />
           </Route>
         </Switch>
-        {cartMessage ? (
+        {/* {cartMessage ? (
           <div>
             <p>{cartMessage}</p>
             <button onClick={handleDismissCartMessage}>X</button>
           </div>
         ) : (
           ""
-        )}
+        )} */}
       </div>
     </Router>
   );
